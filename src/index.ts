@@ -5,7 +5,7 @@ import * as path from 'path';
 const ora = require('ora');
 let spinner = ora();
 spinner.color = 'yellow';
-spinner.text = 'Scanning your angular project...';
+spinner.text = 'Scanning your project...';
 spinner.start();
 
 const forked = fork(path.join(__dirname, './child.js'));
