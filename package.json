@@ -1,7 +1,7 @@
 {
   "name": "@compodoc/ts-stats",
   "version": "1.0.0",
-  "description": "Gets some stats of any TypeScript application",
+  "description": "Gets some statistics of any TypeScript application",
   "main": "dist/index.js",
   "bin": {
     "ts-stats": "dist/index.js"
@@ -11,9 +11,12 @@
     "url": "git@github.com:compodoc/ts-stats.git"
   },
   "scripts": {
-    "postinstall": "tsc"
+    "prepublishOnly": "tsc"
   },
-  "keywords": [],
+  "keywords": [
+    "typescript",
+    "statistics"
+  ],
   "author": {
     "email": "contact@wassimchegham.com",
     "name": "Wassim Chegham",
