@@ -22,11 +22,11 @@
   "license": "MIT",
   "dependencies": {
     "cli-table": "^0.3.1",
+    "ts-simple-ast": "^10.2.0",
     "ora": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^9.6.2",
-    "ts-simple-ast": "^10.2.0",
     "typescript": "^2.8.1"
   }
 }
