@@ -1,0 +1,32 @@
+{
+  "name": "@compodoc/ts-stats",
+  "version": "1.0.0",
+  "description": "Gets some stats of any TypeScript application",
+  "main": "dist/index.js",
+  "bin": {
+    "ts-stats": "dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:compodoc/ts-stats.git"
+  },
+  "scripts": {
+    "postinstall": "tsc"
+  },
+  "keywords": [],
+  "author": {
+    "email": "contact@wassimchegham.com",
+    "name": "Wassim Chegham",
+    "url": "https://twitter.com/manekinekko"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cli-table": "^0.3.1",
+    "ora": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^9.6.2",
+    "ts-simple-ast": "^10.2.0",
+    "typescript": "^2.8.1"
+  }
+}
