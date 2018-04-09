@@ -19,14 +19,16 @@
     "name": "Wassim Chegham",
     "url": "https://twitter.com/manekinekko"
   },
+  "contributors": [
+    "vogloblinsky"
+  ],
   "license": "MIT",
   "dependencies": {
     "cli-table": "^0.3.1",
-    "ts-simple-ast": "^10.2.0",
-    "ora": "^2.0.0"
+    "ora": "^2.0.0",
+    "ts-simple-ast": "^10.2.0"
   },
   "devDependencies": {
-    "@types/node": "^9.6.2",
-    "typescript": "^2.8.1"
+    "@types/node": "^9.6.2"
   }
 }
