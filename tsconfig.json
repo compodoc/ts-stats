@@ -5,21 +5,15 @@
     "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "es2015",
     "noImplicitAny": false,
     "outDir": "./dist",
     "rootDir": "./src",
     "sourceMap": false,
     "noResolve": false,
-    "typeRoots": [
-      "../node_modules/@types"
-    ],
-    "types": [
-      "node"
-    ]
+    "typeRoots": ["../node_modules/@types"],
+    "lib": ["es2015"],
+    "types": ["node"]
   },
-  "files": [
-    "src/index.ts",
-    "src/child.ts"
-  ]
+  "include": ["src/**/*.ts"]
 }
