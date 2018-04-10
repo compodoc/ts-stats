@@ -31,8 +31,8 @@ const stats = [
   'imports',
   'exports',
   'specs',
-  'files', 
   'loc', 
+  'files', 
 ];
 forked.send({ tsConfigFilePath, stats });
 
