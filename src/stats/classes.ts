@@ -4,10 +4,11 @@ export default function(sourcesFiles: SourceFile[]) {
   const classesAnnotated = [];
   sourcesFiles.map(sourceFile => {
     sourceFile.getClasses().map(classe => {
-      // get only classes without decorators
       if (classe.getDecorators().length === 0) {
+        // get classes without decorators
         classes.push(classe.getName());
       } else {
+        // get classes with decorators
         classesAnnotated.push(classe.getName());
       }
     });
