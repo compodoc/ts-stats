@@ -1,4 +1,5 @@
 import { SourceFile } from 'ts-simple-ast';
+const KEY = 'LOC (total)';
 const KEY1 = 'LOC (mean)';
 const KEY2 = 'LOC (median)';
 const KEY3 = 'LOC (mode)';
@@ -6,6 +7,7 @@ const KEY3 = 'LOC (mode)';
 export default function(sourcesFiles: SourceFile[]) {
   const lineNumbers = [];
   const loc = {};
+  let total = 0;
   let mean = '0';
   let mode = '0';
   let median = '0';
@@ -29,7 +31,9 @@ export default function(sourcesFiles: SourceFile[]) {
 
   // mean
   if (lineNumbers.length > 0) {
-    mean = (lineNumbers.reduce((a, b) => a + b, 0) / lineNumbers.length).toFixed(2);
+    total = lineNumbers.reduce((a, b) => a + b, 0);
+
+    mean = (total / lineNumbers.length).toFixed(2);
 
     // median
     let middle = (lineNumbers.length / 2) | 0;
@@ -48,7 +52,7 @@ export default function(sourcesFiles: SourceFile[]) {
   }
 
   return {
-    keys: [[KEY1, KEY2, KEY3].join('\n')],
-    values: [[mean, median, mode].join('\n')]
+    keys: [[KEY, KEY1, KEY2, KEY3].join('\n')],
+    values: [[total, mean, median, mode].join('\n')]
   };
 }
