@@ -47,7 +47,5 @@ forked.on('message', done => {
 });
 
 ['uncaughtException', 'UnhandledPromiseRejectionWarning', 'exit', 'disconnect'].map(error => {
-  forked.on(error, _ => {
-    process.exit(1);
-  });
+  forked.on(error, _ => process.exit(1));
 });
