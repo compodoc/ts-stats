@@ -8,23 +8,6 @@ interface StatType {
 }
 
 const table = new Table({
-  // chars: {
-  //   top: '',
-  //   'top-mid': '',
-  //   'top-left': '',
-  //   'top-right': '',
-  //   bottom: '',
-  //   'bottom-mid': '',
-  //   'bottom-left': '',
-  //   'bottom-right': '',
-  //   left: '',
-  //   'left-mid': '',
-  //   mid: '',
-  //   'mid-mid': '',
-  //   right: '',
-  //   'right-mid': '',
-  //   middle: ' '
-  // },
   style: { 'padding-bottom': 0, 'padding-top': 0 },
   head: ['Type', 'Stats']
 });
@@ -51,9 +34,9 @@ function main(tsConfigFilePath: string, statsToCompute: string[]) {
   const stats = computeStats(sourcesFiles, statsToCompute) as StatType[];
 
   stats.forEach(stat => {
-    // stat.keys.forEach((key, index) => {
-    // });
-    table.push([stat.keys.shift(), ...stat.values]);
+    if (stat.values[0].toString().trim()) {
+      table.push([stat.keys.shift(), ...stat.values]);
+    }
   });
 
   process.send({ result: table.toString() });
