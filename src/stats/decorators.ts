@@ -14,36 +14,28 @@ export default function(sourcesFiles: SourceFile[]) {
   sourcesFiles.map(sourceFile => {
     sourceFile.getClasses().map(classe => {
       try {
-        // class decorators
-        classe.getDecorators().map(decorator => {
-          pushDecorator(classe, decorator, stats);
-        });
-        // property decorators
-        classe.getProperties().map(property => {
-          property.getDecorators().map(decorator => {
-            pushDecorator(classe, decorator, stats);
-          })
-        });
-        // method decorators
-        classe.getMethods().map(method => {
-          method.getDecorators().map(decorator => {
-            pushDecorator(classe, decorator, stats);
-          })
-        });
-        // constructor args decorators
-        classe.getConstructors().map(constructor => {
-          constructor.getParameters().map(parameter => {
-            parameter.getDecorators().map(decorator => {
-              pushDecorator(classe, decorator, stats);
-            })
-          })
-        });
+        []
+          .concat(
+            // class decorators
+            ...classe.getDecorators(),
+            // property decorators
+            ...classe.getProperties().map(property => property.getDecorators()),
+            // method decorators
+            ...classe.getMethods().map(method => method.getDecorators()),
+            // constructor args decorators
+            ...classe.getConstructors().map(constructor => constructor.getParameters().map(parameter => parameter.getDecorators()))
+          )
+          .map(decorator => pushDecorator(classe, decorator, stats));
       } catch (e) {}
     });
   });
 
   return {
     keys: [Object.keys(stats).join('\n')],
-    values: [Object.keys(stats).map(k => stats[k].length).join('\n')]
+    values: [
+      Object.keys(stats)
+        .map(k => stats[k].length)
+        .join('\n')
+    ]
   };
 }
