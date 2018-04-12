@@ -11,7 +11,7 @@
     "url": "git@github.com:compodoc/ts-stats.git"
   },
   "scripts": {
-    "start": "tsc",
+    "start": "tsc --watch",
     "prepublishOnly": "tsc"
   },
   "keywords": [
