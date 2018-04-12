@@ -1,7 +1,7 @@
 {
   "name": "@compodoc/ts-stats",
   "version": "1.0.0",
-  "description": "Gets interesting statistics of any TypeScript application",
+  "description": "Gets interesting statistics about any TypeScript application",
   "main": "dist/index.js",
   "bin": {
     "ts-stats": "dist/index.js"
@@ -11,6 +11,7 @@
     "url": "git@github.com:compodoc/ts-stats.git"
   },
   "scripts": {
+    "start": "tsc",
     "prepublishOnly": "tsc"
   },
   "keywords": [
@@ -28,11 +29,12 @@
   "license": "MIT",
   "dependencies": {
     "cli-table": "^0.3.1",
-    "minimist": "^1.2.0",
+    "commander": "^2.15.1",
     "ora": "^2.0.0",
     "ts-simple-ast": "^10.3.0"
   },
   "devDependencies": {
-    "@types/node": "^9.6.2"
+    "@types/node": "^9.6.2",
+    "typescript": "^2.8.1"
   }
 }
