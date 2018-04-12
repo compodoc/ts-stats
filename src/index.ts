@@ -7,20 +7,13 @@ const forked = fork(path.join(__dirname, './worker.js'));
 const projectProject = require(path.join('..', 'package.json'));
 const userProjectPackage = require(path.join(process.cwd(), 'package.json'));
 
-const defaultStats = {
-  decorators: true,
-  classes: true,
-  interfaces: true,
-  imports: true,
-  exports: true,
-  specs: true,
-  loc: true,
-  files: true
-};
+const AVAILABLE_STATS = ['decorators', 'classes', 'interfaces', 'imports', 'exports', 'specs', 'loc', 'files'];
 
 program
   .version(projectProject.version, '-v, --version')
-  .option('-p, --tsconfig <tsconfig>', 'TypeScript "tsconfig.json" file', 'tsconfig.json')
+  .option('-p, --tsconfig <tsconfig>', 'TypeScript "tsconfig.json" file', 'tsconfig.json');
+
+program
   .option('-l, --loc', 'Lines of code')
   .option('-f, --files', 'Files')
   .option('-d, --decorators', 'Decorators')
@@ -28,12 +21,22 @@ program
   .option('-i, --interfaces', 'Interfaces')
   .option('-m, --imports', 'Imports')
   .option('-e, --exports', 'Exports')
-  .option('-s, --specs', 'Specs')
+  .option('-s, --specs', 'Specs');
+// .option('--no-files', `Don't include Files`)
+// .option('--no-decorators', `Don't include Decorators`)
+// .option('--no-classes', `Don't include Classes`)
+// .option('--no-interfaces', `Don't include Interfaces`)
+// .option('--no-imports', `Don't include Imports`)
+// .option('--no-exports', `Don't include Exports`)
+// .option('--no-specs', `Don't include Specs`)
+
+program
   .on('--help', () => {
     console.log(`
   Examples:
+    $ ts-stats -p src/tsconfig.app.json <boolean>
     $ ts-stats --loc --classes
-    $ ts-stats --loc --classes
+    $ ts-stats --no-loc
     $ ts-stats -i -m
     `);
   })
@@ -41,13 +44,19 @@ program
 
 const tsConfigFilePath = path.join(process.cwd(), program.tsconfig);
 const options = process.argv.slice(2);
-if (options.length === 0 || program.tsconfig) {
-  // no options given, set from defaults
-  for(let opt in defaultStats) {
-    if (defaultStats[opt]) {
-      program[opt] = true;
-    }
+
+// if --loc ==> only run loc
+// if --loc && --specs ==> only run loc and specs
+// if (empty) ==> run all defaults
+let userStats = [];
+for (let k in program) {
+  if (program[k] && AVAILABLE_STATS.includes(k)) {
+    // only keep options that are "stats"
+    userStats.push(k);
   }
+}
+if (userStats.length === 0) {
+  userStats = AVAILABLE_STATS;
 }
 
 if (!fs.existsSync(tsConfigFilePath)) {
@@ -63,7 +72,6 @@ spinner.color = 'yellow';
 spinner.text = `Scanning project${userProjectPackage ? ': ' + userProjectPackage.name : ' ...'}`;
 spinner.start();
 
-let userStats = Object.keys(program).filter(k => k in defaultStats);
 forked.send({ tsConfigFilePath, stats: userStats });
 
 forked.on('message', done => {
