@@ -4,7 +4,8 @@ import * as fs from 'fs';
 import * as program from 'commander';
 import { fork } from 'child_process';
 const forked = fork(path.join(__dirname, './worker.js'));
-const project = require(path.join('..', 'package.json'));
+const projectProject = require(path.join('..', 'package.json'));
+const userProjectPackage = require(path.join(process.cwd(), 'package.json'));
 
 const defaultStats = {
   decorators: true,
@@ -18,7 +19,7 @@ const defaultStats = {
 };
 
 program
-  .version(project.version, '-v, --version')
+  .version(projectProject.version, '-v, --version')
   .option('-p, --tsconfig <tsconfig>', 'TypeScript "tsconfig.json" file', 'tsconfig.json')
   .option('-l, --loc', 'Lines of code')
   .option('-f, --files', 'Files')
@@ -59,7 +60,7 @@ if (!fs.existsSync(tsConfigFilePath)) {
 const ora = require('ora');
 let spinner = ora();
 spinner.color = 'yellow';
-spinner.text = `Scanning project${project ? ': ' + project.name : ' ...'}`;
+spinner.text = `Scanning project${userProjectPackage ? ': ' + userProjectPackage.name : ' ...'}`;
 spinner.start();
 
 let userStats = Object.keys(program).filter(k => k in defaultStats);
