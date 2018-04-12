@@ -1,4 +1,5 @@
 import { SourceFile } from 'ts-simple-ast';
+import { format } from '../helpers';
 const KEY = 'TypeScript Files';
 const stats = { [KEY]: [] };
 export default function(sourcesFiles: SourceFile[]) {
@@ -8,6 +9,6 @@ export default function(sourcesFiles: SourceFile[]) {
 
   return {
     keys: [KEY],
-    values: [stats[KEY].length]
+    values: [format(stats[KEY].length)]
   };
 }

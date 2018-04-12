@@ -1,4 +1,5 @@
 import { SourceFile } from 'ts-simple-ast';
+import { format } from '../helpers';
 const KEY = 'LOC (total)';
 const KEY1 = 'LOC (mean)';
 const KEY2 = 'LOC (median)';
@@ -53,6 +54,6 @@ export default function(sourcesFiles: SourceFile[]) {
 
   return {
     keys: [[KEY, KEY1, KEY2, KEY3].join('\n')],
-    values: [[total, mean, median, mode].join('\n')]
+    values: [[format(total), format(+mean), format(+median), format(+mode)].join('\n')]
   };
 }

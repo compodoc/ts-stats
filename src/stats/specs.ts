@@ -1,4 +1,5 @@
 import { SourceFile, SyntaxKind } from 'ts-simple-ast';
+import { format } from '../helpers';
 const KEY1 = 'Spec (files)';
 const KEY2 = 'Spec (describe)';
 const KEY2x = 'Spec (xdescribe)';
@@ -9,7 +10,7 @@ const KEY3f = 'Spec (fit)';
 const KEY4 = 'Spec (expect)';
 
 function filter(funcNames, by) {
-  return funcNames.filter(n => n === by).length
+  return funcNames.filter(n => n === by).length;
 }
 export default function(sourcesFiles: SourceFile[]) {
   const files = [];
@@ -46,6 +47,17 @@ export default function(sourcesFiles: SourceFile[]) {
 
   return {
     keys: [[KEY1, KEY2, KEY2x, KEY2f, KEY3, KEY3x, KEY3f, KEY4].join('\n')],
-    values: [[files.length, describe, xdescribe, fdescribe, it, xit, fit, expect].join('\n')]
+    values: [
+      [
+        format(files.length),
+        format(describe),
+        format(xdescribe),
+        format(fdescribe),
+        format(it),
+        format(xit),
+        format(fit),
+        format(expect)
+      ].join('\n')
+    ]
   };
 }

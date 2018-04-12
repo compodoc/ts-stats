@@ -1,4 +1,5 @@
 import { SourceFile } from 'ts-simple-ast';
+import { format } from '../helpers';
 const KEY = 'Exports';
 const stats = { [KEY]: [] };
 export default function(sourcesFiles: SourceFile[]) {
@@ -13,14 +14,12 @@ export default function(sourcesFiles: SourceFile[]) {
   });
 
   return {
-    keys: [
-      [KEY, 'Exports (named)', 'Exports (default)'].join('\n')
-    ],
+    keys: [[KEY, 'Exports (named)', 'Exports (default)'].join('\n')],
     values: [
       [
-        stats[KEY].length,
-        stats[KEY].filter((c: string) => !c.startsWith('default_export_')).length,
-        stats[KEY].filter((c: string) => c.startsWith('default_export_')).length
+        format(stats[KEY].length),
+        format(stats[KEY].filter((c: string) => !c.startsWith('default_export_')).length),
+        format(stats[KEY].filter((c: string) => c.startsWith('default_export_')).length)
       ].join('\n')
     ]
   };
