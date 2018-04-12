@@ -9,7 +9,7 @@
 Gives statistics about your TypeScript files
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/compodoc/ts-stats/master/screenshots/terminal.png" alt="ts-stats">
+  <img src="https://raw.githubusercontent.com/compodoc/ts-stats/master/screenshots/terminal-2.png" alt="ts-stats">
 </p>
 
 ## Install
