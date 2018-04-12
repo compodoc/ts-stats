@@ -14,7 +14,7 @@ const defaultStats = {
   imports: true,
   exports: true,
   specs: true,
-  loc: false,
+  loc: true,
   files: true
 };
 
@@ -39,9 +39,10 @@ program
   })
   .parse(process.argv);
 
+const tsConfigFilePath = path.join(process.cwd(), program.tsconfig);
 const options = process.argv.slice(2);
-if (options.length === 0) {
-  // no options given, run all defaults
+if (options.length === 0 || program.tsconfig) {
+  // no options given, set from defaults
   for(let opt in defaultStats) {
     if (defaultStats[opt]) {
       program[opt] = true;
@@ -49,7 +50,6 @@ if (options.length === 0) {
   }
 }
 
-const tsConfigFilePath = path.join(process.cwd(), program.tsconfig);
 if (!fs.existsSync(tsConfigFilePath)) {
   console.warn(`"${tsConfigFilePath}" file not found. Abort.`);
   process.exit(1);
