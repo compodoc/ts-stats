@@ -1,40 +1,28 @@
-import { SourceFile } from 'ts-simple-ast';
+import { SourceFile, Node, TypeGuards } from 'ts-simple-ast';
+import { stat } from 'fs';
 
-function pushDecorator(classe, decorator, stats) {
-  const _decorator = `@${decorator.getFullName()}()`;
+function visit(decorator: string, stats: {[key: string]: number}) {
+  const _decorator = `@${decorator}()`;
   const entry = stats[_decorator];
-  if (!entry) {
-    stats[_decorator] = [];
-  }
-  stats[_decorator].push(classe.getName());
+  stats[_decorator] = (stats[_decorator] || 0) + 1;
 }
 
-export default function(sourcesFiles: SourceFile[]) {
-  const stats = {};
-  sourcesFiles.map(sourceFile => {
-    sourceFile.getClasses().map(classe => {
-      try {
-        []
-          .concat(
-            // class decorators
-            ...classe.getDecorators(),
-            // property decorators
-            ...classe.getProperties().map(property => property.getDecorators()),
-            // method decorators
-            ...classe.getMethods().map(method => method.getDecorators()),
-            // constructor args decorators
-            ...classe.getConstructors().map(constructor => constructor.getParameters().map(parameter => parameter.getDecorators()))
-          )
-          .map(decorator => pushDecorator(classe, decorator, stats));
-      } catch (e) {}
+export default function(sourceFiles: SourceFile[]) {
+  const stats: {[key: string]: number} = {};
+
+  for (const sourceFile of sourceFiles) {
+    sourceFile.forEachDescendant(descendant => {
+      if (TypeGuards.isDecorator(descendant)) {
+        visit(descendant.getFullName(), stats);
+      }
     });
-  });
+  }
 
   return {
     keys: [Object.keys(stats).join('\n')],
     values: [
       Object.keys(stats)
-        .map(k => stats[k].length)
+        .map(k => stats[k])
         .join('\n')
     ]
   };

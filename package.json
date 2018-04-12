@@ -30,7 +30,7 @@
     "cli-table": "^0.3.1",
     "minimist": "^1.2.0",
     "ora": "^2.0.0",
-    "ts-simple-ast": "^10.2.0"
+    "ts-simple-ast": "^10.3.0"
   },
   "devDependencies": {
     "@types/node": "^9.6.2"
