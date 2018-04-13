@@ -33,3 +33,19 @@ Use __`ts-stats`__ near a `tsconfig.json` file.
 ```
 $ ts-stats
 ```
+
+## CLI Arguments
+
+```
+-v, --version              output the version number
+-h, --help                 output usage information
+-p, --tsconfig <tsconfig>  TypeScript "tsconfig.json" file (default: tsconfig.json)
+-l, --loc                  Lines of code
+-f, --files                Files
+-d, --decorators           Decorators
+-c, --classes              Classes
+-i, --interfaces           Interfaces
+-m, --imports              Imports
+-e, --exports              Exports
+-s, --specs                Specs
+```
