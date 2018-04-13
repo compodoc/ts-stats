@@ -3,9 +3,20 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as program from 'commander';
 import { fork } from 'child_process';
+import * as chalk from 'chalk';
 const forked = fork(path.join(__dirname, './worker.js'));
-const projectProject = require(path.join('..', 'package.json'));
-const userProjectPackage = require(path.join(process.cwd(), 'package.json'));
+let projectProject;
+let userProjectPackage;
+try {
+  projectProject = require(path.join('..', 'package.json'));
+} catch (e) {
+  console.log(chalk.red('Could not read project package.json file.'));
+}
+try {
+  userProjectPackage = require(path.join(process.cwd(), 'package.json'));
+} catch (e) {
+  console.log(chalk.red('Could not read user project package.json file.'));
+}
 
 const AVAILABLE_STATS = ['decorators', 'classes', 'interfaces', 'imports', 'exports', 'specs', 'loc', 'files'];
 
