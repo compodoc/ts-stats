@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as program from 'commander';
 import { fork } from 'child_process';
-import * as chalk from 'chalk';
+const chalk = require('chalk');
 const forked = fork(path.join(__dirname, './worker.js'));
 let projectProject;
 let userProjectPackage;
